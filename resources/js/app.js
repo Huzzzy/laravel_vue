@@ -13,10 +13,16 @@ import { createApp } from 'vue';
  * to use in your application's views. An example is included for you.
  */
 
-const app = createApp({});
+const app = createApp({
+    el: '#app',
 
-import ExampleComponent from './components/ExampleComponent.vue';
-app.component('example-component', ExampleComponent);
+    components: {
+        PostComponent,
+    }
+});
+
+import PostComponent from './components/PostComponent.vue';
+app.component('post-component', PostComponent);
 
 /**
  * The following block of code may be used to automatically register your
