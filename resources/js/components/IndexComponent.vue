@@ -10,12 +10,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="person in people">
-                    <th scope="row">{{ person.id }}</th>
-                    <td>{{ person.name }}</td>
-                    <td>{{ person.age }}</td>
-                    <td>{{ person.job }}</td>
-                </tr>
+                <template v-for="person in people">
+                    <tr :class="isEdit(person.id) ? 'd-none' : ''">
+                        <th scope="row">{{ person.id }}</th>
+                        <td>{{ person.name }}</td>
+                        <td>{{ person.age }}</td>
+                        <td>{{ person.job }}</td>
+                    </tr>
+                    <tr :class="isEdit(person.id) ? '' : 'd-none'">
+                        <th scope="row">{{ person.id }}</th>
+                        <td><input type="text" v-model="name" class="form-control"></td>
+                        <td><input type="number" v-model="age" class="form-control"></td>
+                        <td><input type="text" v-model="job" class="form-control"></td>
+                        <td><a href="#" @click.prevent="updatePerson(person.id)" class="btn btn-success">Update</a>
+                        </td>
+                    </tr>
+                </template>
             </tbody>
         </table>
     </div>
@@ -27,7 +37,11 @@ export default {
 
     data() {
         return {
-            people: null
+            people: null,
+            editPersonId: null,
+            name: '',
+            age: null,
+            job: ''
         }
     },
 
@@ -41,6 +55,42 @@ export default {
                 .then((result) => {
                     this.people = result.data;
                 });
+        },
+
+        updatePerson(id) {
+            this.editPersonId = null;
+            axios.patch(`/api/people/${id}`, {
+                name: this.name,
+                age: this.age,
+                job: this.job,
+            })
+                .then((result) => {
+                    console.log(result.data);
+                    this.getPeople();
+                });
+        },
+
+        deletePerson(id) {
+            axios.patch(`/api/people/${id}`, {
+                name: this.name,
+                age: this.age,
+                job: this.job,
+            })
+                .then((result) => {
+                    console.log(result.data);
+                    this.getPeople();
+                });
+        },
+
+        changeEditPersonId(id, name, age, job) {
+            this.editPersonId = id;
+            this.name = name;
+            this.age = age;
+            this.job = job;
+        },
+
+        isEdit(id) {
+            return this.editPersonId === id;
         }
     },
 
