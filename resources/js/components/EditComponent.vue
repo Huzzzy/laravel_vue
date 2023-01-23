@@ -37,7 +37,6 @@ export default {
                 job: this.job,
             })
                 .then((result) => {
-                    console.log(result.data);
                     this.$parent.getPeople();
                 });
         },
