@@ -15,11 +15,12 @@
 |
 */
 
-    Route::get('/', function () {
-        return view('welcome');
-    });
+    // Route::get('/', function () {
+    //     return view('welcome');
+    // });
 
     Auth::routes();
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/posts', 'App\Http\Controllers\PostController')->name('post');
+
+    Route::get('/{page}', 'App\Http\Controllers\IndexController')->where('page', '.*');
