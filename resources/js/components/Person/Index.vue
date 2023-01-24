@@ -12,17 +12,19 @@
             </thead>
             <tbody>
                 <tr v-for="person in people">
-                    <td>{{ person.name }}</td>
+                    <td>
+                        <router-link class="nav-link" :to="{ name: 'person.show', params: { id: person.id } }">{{
+                            person.name
+                        }}</router-link>
+                    </td>
                     <td>{{ person.age }}</td>
                     <td>{{ person.job }}</td>
                     <td>
-                        <router-link class="btn btn-primary"
-                            :to="{ name: 'person.show', params: { id: person.id } }">Show</router-link>
-
+                        <router-link class="btn btn-outline-success"
+                            :to="{ name: 'person.edit', params: { id: person.id } }">Edit</router-link>
                     </td>
                     <td>
-                        <router-link class="btn btn-success"
-                            :to="{ name: 'person.edit', params: { id: person.id } }">Edit</router-link>
+                        <a @click.prevent="deletePerson(person.id)" class="btn btn-outline-danger" href="#">Delete</a>
                     </td>
                 </tr>
             </tbody>
@@ -51,6 +53,13 @@ export default {
             axios.get('/api/people')
                 .then((result) => {
                     this.people = result.data;
+                });
+        },
+
+        deletePerson(id) {
+            axios.delete('/api/people/' + id)
+                .then((result) => {
+                    this.getPeople();
                 });
         }
     },
