@@ -6,6 +6,8 @@
                     <th scope="col">Name</th>
                     <th scope="col">Age</th>
                     <th scope="col">Job</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -13,6 +15,15 @@
                     <td>{{ person.name }}</td>
                     <td>{{ person.age }}</td>
                     <td>{{ person.job }}</td>
+                    <td>
+                        <router-link class="btn btn-primary"
+                            :to="{ name: 'person.show', params: { id: person.id } }">Show</router-link>
+
+                    </td>
+                    <td>
+                        <router-link class="btn btn-success"
+                            :to="{ name: 'person.edit', params: { id: person.id } }">Edit</router-link>
+                    </td>
                 </tr>
             </tbody>
         </table>
