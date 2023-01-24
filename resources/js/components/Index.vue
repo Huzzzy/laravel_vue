@@ -1,11 +1,9 @@
 <template>
     <div>
         <div>
-            <router-link to="/posts">Posts</router-link>
+            <router-link :to="{ name: 'person.index' }">People</router-link>
         </div>
-        <div>
-            <router-link to="/tags">Tags</router-link>
-        </div>
+
         <router-view></router-view>
     </div>
 </template>
