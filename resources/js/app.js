@@ -1,9 +1,9 @@
-import './bootstrap';
+import "./bootstrap";
 
 import router from "./router";
+import store from "./store";
 import Index from "./components/Index.vue";
 
-import { createApp } from 'vue';
+import { createApp } from "vue";
 
-createApp(Index).use(router).mount('#app')
-
+createApp(Index).use(router).use(store).mount("#app");
