@@ -52,12 +52,12 @@ export default {
         getPeople() {
             axios.get('/api/people')
                 .then((result) => {
-                    this.people = result.data;
+                    this.people = result.data.data;
                 });
         },
 
         deletePerson(id) {
-            axios.delete('/api/people/' + id)
+            axios.delete(`/api/people/${id}`)
                 .then((result) => {
                     this.getPeople();
                 });
